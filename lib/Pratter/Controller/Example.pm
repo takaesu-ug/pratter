@@ -6,14 +6,11 @@ sub welcome {
     my $self = shift;
 
     my $fuga_rs = $self->app->rs('fuga');
-
-    use DDP;
-    my @test = $fuga_rs->search()->all;
-    p @test;
+    my $test = $fuga_rs->search()->next;
 
     # Render template "example/welcome.html.ep" with message
     $self->render(
-        message => 'TAKAESU Welcome to the Mojolicious real-time web framework!');
+        message => $test->body." Welcome to the Mojolicious real-time web framework!");
 }
 
 1;
