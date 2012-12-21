@@ -1,0 +1,9 @@
+www:
+    type: perl-worker
+    ports:
+        www: http
+    config:
+        perl_version: v5.16.x
+db:
+    type: mysql
+

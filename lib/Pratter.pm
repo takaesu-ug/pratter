@@ -3,6 +3,8 @@ use Mojo::Base 'Mojolicious';
 use String::CamelCase qw/ camelize decamelize /;
 use Pratter::Schema;
 
+use JSON;
+
 
 # This method will run once at server start
 sub startup {
@@ -26,9 +28,29 @@ sub startup {
 
 sub schema {
     my $self = shift;
+    my $env_dot_cloud_file = "/home/dotcloud/environment.json";
     my $module_name = 'Pratter::Schema';
 
-    $module_name->connect(@{ $self->config->{database} });
+    if ( -e $env_dot_cloud_file ) {
+        open my $fh, "<", $env_dot_cloud_file or die $!;
+        my $env = JSON::decode_json(join '', <$fh>);
+        my $user = $env->{DOTCLOUD_DB_MYSQL_LOGIN};
+        my $password = $env->{DOTCLOUD_DB_MYSQL_PASSWORD};
+        my $host = $env->{DOTCLOUD_DB_MYSQL_HOST};
+        my $port = $env->{DOTCLOUD_DB_MYSQL_PORT};
+        my $database = "hoge";
+        $module_name->connect(
+            "dbi:mysql:database=$database;host=$host;port=$port;", $user, $password,
+            {
+                on_connect_do     => ['SET NAMES utf8'],
+                mysql_enable_utf8 => 1,
+            },
+        );
+    }
+    else {
+        # local development environment
+        $module_name->connect(@{ $self->config->{db} });
+    }
 }
 
 sub rs {
@@ -40,3 +62,5 @@ sub rs {
 }
 
 1;
+
+
