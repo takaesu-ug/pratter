@@ -4,19 +4,8 @@ use warnings;
 use utf8;
 
 use parent 'Exporter';
-our @EXPORT = qw/PK_INTEGER PK_BIGINT BIGINT INTEGER FLOAT DOUBLE VARCHAR VARCHAR_NULL TINYINT DATETIME DATE DATETIME_NULL DATE_NULL TEXT/;
+our @EXPORT = qw/PK_BIGINT BIGINT INTEGER FLOAT DOUBLE VARCHAR VARCHAR_NULL TINYINT DATETIME DATE DATETIME_NULL DATE_NULL TEXT/;
 
-sub PK_INTEGER {
-    +{
-        data_type         => 'INTEGER',
-        is_nullable       => 0,
-        is_auto_increment => 1,
-        extra => {
-            unsigned => 1,
-        },
-        @_,
-    };
-}
 
 sub PK_BIGINT {
     +{

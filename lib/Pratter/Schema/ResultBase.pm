@@ -23,17 +23,14 @@ sub insert {
     my $now = Pratter::Schema->now;
     $self->created_at( $now ) if $self->can('created_at');
     $self->updated_at( $now ) if $self->can('updated_at');
-
     $self->next::method(@_);
 }
 
 sub update {
     my $self = shift;
 
-    if ($self->can('updated_at')) {
-        $self->updated_at( Pratter::Schema->now );
-    }
-
+    my $now = Pratter::Schema->now;
+    $self->updated_at( $now ) if $self->can('updated_at');
     $self->next::method(@_);
 }
 
