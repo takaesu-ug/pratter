@@ -16,6 +16,7 @@ WriteMakefile(
         'DateTime'          => '0.78',
         'String::CamelCase' => '0.02',
         'JSON'              => '2.50',
+        'Project::Libs'     => 0,
     },
     test      => {TESTS => 't/*.t'}
 );
