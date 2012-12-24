@@ -16,7 +16,10 @@ WriteMakefile(
         'DateTime'          => '0.78',
         'String::CamelCase' => '0.02',
         'JSON'              => '2.50',
+
+        # 開発環境関連
         'Project::Libs'     => 0,
+        'SQL::Translator'   => '0.11016',
     },
     test      => {TESTS => 't/*.t'}
 );

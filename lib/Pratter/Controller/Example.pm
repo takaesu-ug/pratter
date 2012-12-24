@@ -5,12 +5,12 @@ use Mojo::Base 'Mojolicious::Controller';
 sub welcome {
     my $self = shift;
 
-    my $fuga_rs = $self->app->rs('fuga');
-    my $test = $fuga_rs->search()->next;
+    my $user_rs = $self->app->rs('user');
+    my $test = $user_rs->search()->next;
 
     # Render template "example/welcome.html.ep" with message
     $self->render(
-        message => $test->body." Welcome to the Mojolicious real-time web framework!");
+        message => $test->name." Welcome to the Mojolicious real-time web framework!");
 }
 
 1;

@@ -8,6 +8,7 @@ __PACKAGE__->table('user');
 __PACKAGE__->add_columns(
     id         => PK_BIGINT,
     name       => VARCHAR,
+    login_name => VARCHAR,
     pass       => VARCHAR,
     created_at => DATETIME,
     updated_at => DATETIME,

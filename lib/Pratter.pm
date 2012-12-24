@@ -38,7 +38,7 @@ sub schema {
         my $password = $env->{DOTCLOUD_DB_MYSQL_PASSWORD};
         my $host = $env->{DOTCLOUD_DB_MYSQL_HOST};
         my $port = $env->{DOTCLOUD_DB_MYSQL_PORT};
-        my $database = "hoge";
+        my $database = "pratter";
         $module_name->connect(
             "dbi:mysql:database=$database;host=$host;port=$port;", $user, $password,
             {
