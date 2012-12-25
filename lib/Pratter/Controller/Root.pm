@@ -1,8 +1,7 @@
-package Pratter::Controller::Example;
+package Pratter::Controller::Root;
 use Mojo::Base 'Mojolicious::Controller';
 
-# This action will render a template
-sub welcome {
+sub index {
     my $self = shift;
 
     my $user_rs = $self->app->rs('user');

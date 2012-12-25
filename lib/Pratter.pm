@@ -20,10 +20,8 @@ sub startup {
     $r->namespace('Pratter::Controller');
 
     # Normal route to controller
-    #$r->get('/')->to('example#welcome');
-    $r->route('/')->via('POST','GET')->to(controller =>'example', action => 'welcome');
+    $r->get('/')->to('root#index');
 
-    #$r->route('/:controller/:action')->to(controller => $controller, action => $action);
 }
 
 sub schema {
