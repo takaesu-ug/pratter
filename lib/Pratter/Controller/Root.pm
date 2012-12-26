@@ -4,6 +4,9 @@ use Mojo::Base 'Mojolicious::Controller';
 sub index {
     my $self = shift;
 
+    # セッションがあればtop
+    # なければログイン画面を表示
+
     my $user_rs = $self->app->rs('user');
     my $test = $user_rs->search()->next;
 

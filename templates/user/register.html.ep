@@ -1,0 +1,42 @@
+% layout 'default';
+% title 'Pratter ユーザ登録';
+
+<div class="container">
+
+  <form class="form-horizontal form-user" action="/user/register" method="POST">
+    <h3>ユーザ新規登録</h3>
+
+    <div class="control-group">
+      <label class="control-label" for="name">名前</label>
+      <div class="controls">
+        <%= field('user.name')->text(placeholder => '名前') %>
+        <%= validator_error 'user.name' %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="login_name">ログイン名</label>
+      <div class="controls">
+        <%= field('user.login_name')->text(placeholder => 'ログイン名') %>
+        <%= validator_error 'user.login_name' %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="pass">パスワード</label>
+      <div class="controls">
+        <%= field('user.pass')->password(placeholder => 'パスワード') %>
+        <%= validator_error 'user.pass' %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <div class="controls">
+        <input type="submit"class="btn btn-primary" value="登録">
+        <a href="/" class="btn">キャンセル</a>
+      </div>
+    </div>
+  </form>
+
+
+</div> <!-- /container -->

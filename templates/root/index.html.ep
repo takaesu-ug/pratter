@@ -1,5 +1,14 @@
 % layout 'default';
-% title 'Root Index';
-<h2><%= $message %></h2>
-<a href="<%== url_for %>">click here</a> to reload the page or
-<a href="/index.html">here</a> to move forward to a static page.
+% title 'Pratter';
+
+<div class="container">
+
+  <form class="form-signin" action="login">
+    <h2 class="form-signin-heading">Pratter へようこそ</h2>
+    <input type="text" class="input-block-level" placeholder="ユーザID">
+    <input type="password" class="input-block-level" placeholder="パスワード">
+    <button class="btn btn-primary" type="submit">ログイン</button>
+    <a href="/user/register" class="btn">新規登録</a>
+  </form>
+
+</div> <!-- /container -->

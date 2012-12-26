@@ -1,0 +1,176 @@
+@charset "UTF-8";
+/* --------------------------------------------------
+Reset css and default setting
+-------------------------------------------------- */
+body, div, dl, dt, dd, ul, ol, li,
+h1, h2, h3, h4, h5, h6,
+object, iframe, pre, code, p, blockquote,
+form, fieldset, legend,
+table, th, td, caption, tbody, tfoot, thead,
+article, aside, figure, footer, header,
+hgroup, menu, nav, section, audio, video, canvas, time {
+  margin: 0;
+  padding: 0;
+}
+article, aside, figure, figcaption,footer,
+h1, h2, h3, h4, h5, h6, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  color: #333;
+  font-family: Verdana, Arial, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: normal;
+  word-break: break-all;
+  -webkit-text-size-adjust: none;
+  background-color: #f5f5f5;
+  /* ヘッダレイアウト用スペース */
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+a:link, a:visited { text-decoration: none; }
+a:hover, a:active  { text-decoration: underline; }
+
+h1, h2, h3, h4, h5, h6 {
+}
+
+li { list-style: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-size: 100%;
+  font-family: inherit;
+}
+caption, th, td {
+  text-align: left;
+  vertical-align: top;
+  font-weight: normal;
+}
+
+fieldset { border: none; }
+input, textarea, select, label {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: middle;
+}
+label { cursor: pointer; }
+textarea { overflow: auto; }
+legend { display: none; }
+
+img {
+  border: none;
+  vertical-align: top;
+}
+object {
+  vertical-align: middle;
+  outline: none;
+}
+em, strong {
+  font-weight: bold;
+  font-style: normal;
+}
+small { font-size: 100%; }
+abbr, acronym {
+  border: none;
+  font-variant: normal;
+}
+q:before, q:after { content: ''; }
+address, caption, cite, code, dfn, var {
+  font-weight: normal;
+  font-style: normal;
+}
+code, pre { font-family: monospace; }
+sup { vertical-align: text-top; }
+sub { vertical-align: text-bottom; }
+hr { display: none; }
+
+/* clearfix specification */
+.clearfix:after {
+  content: ".";
+  display: block;
+  clear: both;
+  height: 0;
+  visibility: hidden;
+}
+.clearfix {
+  display: inline-block;
+}
+/* IE-mac \*/
+* html .clearfix {
+  height: 1%;
+}
+.clearfix {
+  display: block;
+}
+/* End IE-mac */
+.clear{
+  clear:both;
+}
+
+/* --------------------------------------------------
+  page layout css
+-------------------------------------------------- */
+/*-------------------------
+  common
+-------------------------*/
+.error {
+  color: #f00;
+}
+
+/*-------------------------
+  login
+-------------------------*/
+.form-signin {
+  max-width: 300px;
+  padding: 19px 29px 29px;
+  margin: 0 auto 20px;
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin input[type="text"],
+.form-signin input[type="password"] {
+  font-size: 16px;
+  height: auto;
+  margin-bottom: 15px;
+  padding: 7px 9px;
+}
+
+/*-------------------------
+  user
+-------------------------*/
+.form-user {
+  max-width: 500px;
+  padding: 19px 29px 29px;
+  margin: 0 auto 20px;
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+
+.form-user h3 {
+  text-align: center;
+  margin-bottom: 15px;
+}

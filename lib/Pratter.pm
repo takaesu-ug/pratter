@@ -11,6 +11,8 @@ sub startup {
     my $self = shift;
 
     $self->plugin('config' => {file => './config/pratter.conf'});
+    $self->plugin('FormFields');
+    $self->plugin('validator');
 
     # Documentation browser under "/perldoc"
     #$self->plugin('PODRenderer');
@@ -21,6 +23,11 @@ sub startup {
 
     # Normal route to controller
     $r->get('/')->to('root#index');
+
+    $r->post('/login')->to('auth#login');
+
+    $r->get('/user/register')->to('user#register');
+    $r->post('/user/register')->to('user#create');
 
 }
 
@@ -57,6 +64,14 @@ sub rs {
 
     my $camel_name = camelize $name;
     $self->schema->resultset($camel_name);
+}
+
+sub row {
+    my ($self, $name, $columns) = @_;
+    die "row object name is required" unless $name;
+
+    $columns = {} unless $columns;
+    $self->rs($name)->new($columns);
 }
 
 1;
