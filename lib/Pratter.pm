@@ -5,31 +5,78 @@ use Pratter::Schema;
 
 use JSON;
 
-
 # This method will run once at server start
 sub startup {
     my $self = shift;
 
+    # Documentation browser under "/perldoc"
+    #$self->plugin('PODRenderer');
+
+    # Pluginをロード
     $self->plugin('config' => {file => './config/pratter.conf'});
     $self->plugin('FormFields');
     $self->plugin('validator');
+    $self->plugin('authentication' => $self->_auth_param);
 
-    # Documentation browser under "/perldoc"
-    #$self->plugin('PODRenderer');
+    # Session
+    $self->sessions->default_expiration(3600);
 
     # Router
     my $r = $self->routes;
     $r->namespace('Pratter::Controller');
+    $r = $r->bridge->to(cb => sub {
+            my $self = shift;
 
-    # Normal route to controller
+            return 1 if ($self->is_user_authenticated);
+
+            my $url = $self->req->url->to_string;
+            my $free_urls = ['/', '/auth', '/user/register'];
+            return 1 if $url ~~ $free_urls;
+
+            $self->redirect_to('/')
+        });
+
     $r->get('/')->to('root#index');
 
-    $r->post('/login')->to('auth#login');
+    $r->post('/auth')->to('auth#auth');
+    $r->get('/sign_out')->to('auth#sign_out');
 
     $r->get('/user/register')->to('user#register');
     $r->post('/user/register')->to('user#create');
 
+
 }
+
+
+sub _auth_param {
+    my $self = shift;
+
+    return {
+        'autoload_user'     => 1,
+        'load_user'         => sub {
+            my ($self, $uid) = @_;
+            my $user = $self->app->rs('user')->find_by_id($uid);
+            if ($user) {
+                return $user;
+            }
+            else {
+                return;
+            }
+        },
+        'validate_user'     => sub {
+            my ($self, $username, $password, $extra) = @_;
+            my $user = $self->app->rs('user')->auth_user($username, $password);
+
+            if ($user) {
+                return $user->id
+            }
+            else {
+                return;
+            }
+        }
+    }
+}
+
 
 sub schema {
     my $self = shift;

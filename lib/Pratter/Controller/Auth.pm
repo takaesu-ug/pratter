@@ -1,21 +1,21 @@
 package Pratter::Controller::Auth;
 use Mojo::Base 'Mojolicious::Controller';
 
-sub login {
+sub auth {
     my $self = shift;
 
-    my $user_rs = $self->app->rs('user');
-    my $test = $user_rs->search()->next;
+    my $u = $self->req->param('login_name');
+    my $p = $self->req->param('pass');
 
-    # Render template "example/welcome.html.ep" with message
-    $self->render(
-        message => $test->name." Welcome to the Mojolicious real-time web framework!");
+    $self->flash( login_error => 1 ) unless $self->authenticate($u, $p);
+    $self->redirect_to('/');
 }
 
-
-sub logout {
+sub sign_out {
     my $self = shift;
-
+    $self->logout();
+    $self->redirect_to('/');
 }
+
 
 1;

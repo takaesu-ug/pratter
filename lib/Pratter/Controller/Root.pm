@@ -4,15 +4,12 @@ use Mojo::Base 'Mojolicious::Controller';
 sub index {
     my $self = shift;
 
-    # セッションがあればtop
-    # なければログイン画面を表示
-
-    my $user_rs = $self->app->rs('user');
-    my $test = $user_rs->search()->next;
-
-    # Render template "example/welcome.html.ep" with message
-    $self->render(
-        message => $test->name." Welcome to the Mojolicious real-time web framework!");
+    if ($self->is_user_authenticated) {
+        $self->render(template => 'root/index_authed');
+    }
+    else {
+        $self->render(template => 'root/index');
+    }
 }
 
 1;

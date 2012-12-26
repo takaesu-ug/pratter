@@ -3,10 +3,14 @@
 
 <div class="container">
 
-  <form class="form-signin" action="login">
+  <form class="form-signin" action="/auth" method="post">
     <h2 class="form-signin-heading">Pratter へようこそ</h2>
-    <input type="text" class="input-block-level" placeholder="ユーザID">
-    <input type="password" class="input-block-level" placeholder="パスワード">
+%   my $login_error = flash 'login_error';
+%   if ($login_error) {
+    <div class="error">ユーザIDまたはパスワードが違います</div>
+%   }
+    <input type="text" name="login_name" class="input-block-level" placeholder="ユーザID">
+    <input type="password" name="pass" class="input-block-level" placeholder="パスワード">
     <button class="btn btn-primary" type="submit">ログイン</button>
     <a href="/user/register" class="btn">新規登録</a>
   </form>

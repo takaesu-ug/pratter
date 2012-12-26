@@ -1,0 +1,8 @@
+% layout 'default_authed';
+% title 'Pratter';
+
+<div class="container">
+
+  <%= current_user->name %>
+
+</div> <!-- /container -->

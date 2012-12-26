@@ -32,6 +32,7 @@ sub create {
         $self->app->rs('User')->register($user);
         $txn->commit;
 
+        $self->authenticate($user->{login_name}, $user->{pass});
         $self->redirect_to('/');
     }
     else {

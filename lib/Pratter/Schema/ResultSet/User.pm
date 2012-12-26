@@ -4,10 +4,22 @@ use warnings;
 use parent 'DBIx::Class::ResultSet';
 use DateTime;
 
+sub find_by_id {
+    my ($self, $id) = @_;
+    $self->find($id);
+}
+
 sub register {
     my ($self, $user) = @_;
-
     $self->create($user);
+}
+
+sub auth_user {
+    my ($self, $username, $password) = @_;
+    $self->search({
+            login_name => $username,
+            pass       => $password,
+        })->next;
 }
 
 1;
