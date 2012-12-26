@@ -7,19 +7,23 @@ WriteMakefile(
     NAME      => 'Platter',
     VERSION   => '0.01',
     PREREQ_PM => {
-        'Mojolicious'       => '3.60',
-        'Plack'             => '1.0014',
+        'Mojolicious'                           => '3.60',
+        'Mojolicious::Plugin::Authentication'   => '1.24',
+        'Mojolicious::Plugin::FormFields'       => '0.02',
+        'Mojolicious::Plugin::Validator'        => 0,
+        'Plack'                                 => '1.0014',
 
-        'DBIx::Class'       => '0.08204',
-        'DBD::mysql'        => '4.022',
+        'DBIx::Class'                           => '0.08204',
+        'DBD::mysql'                            => '4.022',
 
-        'DateTime'          => '0.78',
-        'String::CamelCase' => '0.02',
-        'JSON'              => '2.50',
+        'DateTime'                              => '0.78',
+        'DateTime::Format::MySQL'               => 0,
+        'String::CamelCase'                     => '0.02',
+        'JSON'                                  => '2.50',
 
         # 開発環境関連
-        'Project::Libs'     => 0,
-        'SQL::Translator'   => '0.11016',
+        'Project::Libs'                         => 0,
+        'SQL::Translator'                       => '0.11016',
     },
     test      => {TESTS => 't/*.t'}
 );
