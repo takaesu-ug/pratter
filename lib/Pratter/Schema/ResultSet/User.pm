@@ -9,9 +9,9 @@ sub find_by_id {
     $self->find($id);
 }
 
-sub register {
+sub create {
     my ($self, $user) = @_;
-    $self->create($user);
+    $self->SUPER::create($user);
 }
 
 sub auth_user {

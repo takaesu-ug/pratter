@@ -29,7 +29,7 @@ sub create {
 
     if ($self->validate($validator)) {
         my $txn = $self->app->schema->txn_scope_guard;
-        $self->app->rs('User')->register($user);
+        $self->app->rs('User')->create($user);
         $txn->commit;
 
         $self->authenticate($user->{login_name}, $user->{pass});
