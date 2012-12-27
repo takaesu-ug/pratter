@@ -13,10 +13,30 @@ sub index {
         message => $test->name." Welcome to the Mojolicious real-time web framework!");
 }
 
-# つぶやく
-sub create {
-
+sub register {
+    my $self = shift;
+    my $tweet = $self->app->row('tweet');
+    $self->stash->{tweet} = $tweet;
+    $self->render;
 }
+sub create {
+    my $self = shift;
+    my $validator = $self->create_validator('Pratter::Form::Validator::Tweet');
 
+    my $tweet = $self->param('tweet');
+    $self->stash->{tweet} = $tweet;
+
+    if ($self->validate($validator)) {
+        my $txn = $self->app->schema->txn_scope_guard;
+        $tweet->{user_id} = $self->current_user->id;
+        $self->app->rs('tweet')->create($tweet);
+        $txn->commit;
+
+        $self->redirect_to('/');
+    }
+    else {
+        $self->render(template => 'tweet/register');
+    }
+}
 
 1;

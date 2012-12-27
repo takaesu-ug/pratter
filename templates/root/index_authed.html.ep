@@ -5,4 +5,21 @@
 
   <%= current_user->name %>
 
+
+  <ul class="media-list">
+    <li class="media">
+    <div class="media-body">
+      <h5 class="media-heading">Media heading</h5>
+      テテストテストテストテストテストテストテストテストスト
+    </div>
+    </li>
+    <li class="media">
+    <div class="media-body">
+      <h5 class="media-heading"><%= current_user->name %></h5>
+      テテストテストテストテストテストテストテストテストスト
+    </div>
+    </li>
+  </ul>
+
+
 </div> <!-- /container -->

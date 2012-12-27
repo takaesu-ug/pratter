@@ -44,6 +44,9 @@ sub startup {
     $r->get('/user/register')->to('user#register');
     $r->post('/user/register')->to('user#create');
 
+    $r->get('/tweet/register')->to('tweet#register');
+    $r->post('/tweet/register')->to('tweet#create');
+
 
 }
 
@@ -76,7 +79,6 @@ sub _auth_param {
         }
     }
 }
-
 
 sub schema {
     my $self = shift;
@@ -122,5 +124,4 @@ sub row {
 }
 
 1;
-
 
