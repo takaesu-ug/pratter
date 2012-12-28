@@ -9,6 +9,15 @@ sub find_by_id {
     $self->find($id);
 }
 
+sub search_all {
+    my $self = shift;
+    my $cond = {};
+    my $attr = {
+        order_by  => { -desc => 'updated_at'},
+    };
+    $self->search($cond, $attr);
+}
+
 sub search_by_ids {
     my ($self, $ids) = @_;
     my $cond = {id => { 'in' => $ids } };

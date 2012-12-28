@@ -41,12 +41,16 @@ sub startup {
     $r->post('/auth')->to('auth#auth');
     $r->get('/sign_out')->to('auth#sign_out');
 
+    $r->get('/user')->to('user#index');
     $r->get('/user/register')->to('user#register');
     $r->post('/user/register')->to('user#create');
+    #$r->get('/following/:user_id')->to('user#following');
+    #$r->get('/follower/:user_id')->to('user#follower');
 
     $r->get('/tweet/register')->to('tweet#register');
     $r->post('/tweet/register')->to('tweet#create');
-
+    $r->get('/tweet')->to('tweet#index');
+    $r->get('/tweet/:user_id')->to('tweet#index');
 
 }
 

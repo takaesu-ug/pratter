@@ -5,11 +5,8 @@ use Mojo::Base 'Mojolicious::Controller';
 sub index {
     my $self = shift;
 
-    my $user_rs = $self->app->rs('user');
-    my $test = $user_rs->search()->next;
-
-    $self->render(
-        message => $test->name." Welcome to the Mojolicious real-time web framework!");
+    $self->stash->{users} = [ $self->app->rs('user')->search_all->all ];
+    $self->render;
 }
 
 sub register {

@@ -5,12 +5,15 @@ use Mojo::Base 'Mojolicious::Controller';
 sub index {
     my $self = shift;
 
-    my $user_rs = $self->app->rs('user');
-    my $test = $user_rs->search()->next;
+    my $user_id = $self->stash->{user_id};
+    if ($user_id) {
+        $self->stash->{tweets} = [ $self->app->rs('tweet')->search_by_user_ids([$user_id])->all ];
+    }
+    else {
+        $self->stash->{tweets} = [ $self->app->rs('tweet')->search_all->all ];
+    }
 
-    # Render template "example/welcome.html.ep" with message
-    $self->render(
-        message => $test->name." Welcome to the Mojolicious real-time web framework!");
+    $self->render;
 }
 
 sub register {

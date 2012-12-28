@@ -154,7 +154,7 @@ hr { display: none; }
 }
 
 /*-------------------------
-  user
+  user,tweet  FORM
 -------------------------*/
 .form-user, .form-tweet {
   max-width: 500px;
@@ -174,3 +174,27 @@ hr { display: none; }
   text-align: center;
   margin-bottom: 15px;
 }
+
+
+/*-------------------------
+  list  FORM
+-------------------------*/
+.list-tweet {
+  max-width: 500px;
+  padding: 19px 29px 29px;
+  margin: 0 auto 20px;
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+
+.list-tweet li {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
