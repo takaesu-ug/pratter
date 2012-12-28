@@ -3,9 +3,6 @@
 
 <div class="container">
 
-  <%= current_user->name %>
-
-
   <ul class="media-list">
     <li class="media">
     <div class="media-body">

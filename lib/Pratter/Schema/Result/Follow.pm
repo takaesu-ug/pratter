@@ -15,6 +15,18 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key('id');
 
+__PACKAGE__->belongs_to(
+    user => 'Pratter::Schema::Result::User',
+    {'foreign.id' => 'self.user_id'},
+    {'is_foreign_key_constraint' => 0 }
+);
+
+__PACKAGE__->belongs_to(
+    target_user => 'Pratter::Schema::Result::User',
+    {'foreign.id' => 'self.target_user_id'},
+    {'is_foreign_key_constraint' => 0 }
+);
+
 sub sqlt_deploy_hook {
     my ($self, $sqlt_table) = @_;
 

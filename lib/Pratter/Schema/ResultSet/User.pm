@@ -9,6 +9,13 @@ sub find_by_id {
     $self->find($id);
 }
 
+sub search_by_ids {
+    my ($self, $ids) = @_;
+    my $cond = {id => { 'in' => $ids } };
+    my $attr = {};
+    $self->search($cond, $attr);
+}
+
 sub create {
     my ($self, $user) = @_;
     $self->SUPER::create($user);

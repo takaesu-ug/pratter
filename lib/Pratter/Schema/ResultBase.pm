@@ -4,6 +4,7 @@ use warnings;
 use parent 'DBIx::Class';
 
 use JSON qw/to_json from_json/;
+use String::CamelCase qw/ camelize decamelize /;
 use DateTime;
 
 __PACKAGE__->load_components(qw/InflateColumn::DateTime Core/);
@@ -43,6 +44,14 @@ sub json_columns {
             deflate => sub { my $p = shift; $p &&   to_json($p, {allow_nonref => 1}); },
         });
     }
+}
+
+sub resultset {
+    my ($self, $name) = @_;
+
+    return $self->result_source->schema->resultset(camelize $name) if $name;
+
+    return $self->result_source->resultset;
 }
 
 1;
