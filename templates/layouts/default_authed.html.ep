@@ -23,10 +23,16 @@
               <a href="/tweet/register">つぶやく</a>
               </li>
               <li class="">
-              <a href="./user/">全ユーザ一覧</a>
+              <a href="/user/">全ユーザ一覧</a>
               </li>
             </ul>
             <ul class="nav pull-right">
+              <li class="">
+              <a href="/follower/<%= current_user->id %>">フォロワー</a>
+              </li>
+              <li class="">
+              <a href="/following/<%= current_user->id %>">フォロー</a>
+              </li>
               <li class="">
               <a href="/tweet/<%= current_user->id %>"><%= current_user->name %>(@<%= current_user->login_name %>)</a>
               </li>

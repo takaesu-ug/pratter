@@ -44,8 +44,9 @@ sub startup {
     $r->get('/user')->to('user#index');
     $r->get('/user/register')->to('user#register');
     $r->post('/user/register')->to('user#create');
-    #$r->get('/following/:user_id')->to('user#following');
-    #$r->get('/follower/:user_id')->to('user#follower');
+
+    $r->get('/following/:user_id')->to('follow#following');
+    $r->get('/follower/:user_id')->to('follow#follower');
 
     $r->get('/tweet/register')->to('tweet#register');
     $r->post('/tweet/register')->to('tweet#create');

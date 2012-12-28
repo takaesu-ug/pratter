@@ -37,19 +37,5 @@ sub create {
     }
 }
 
-# フォローしている全ユーザ一覧
-sub following {
-
-}
-
-# フォロワーの全ユーザ一覧
-sub follower {
-
-}
-
-# ユーザをフォローする
-sub follow {
-
-}
 
 1;

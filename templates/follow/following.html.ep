@@ -1,0 +1,24 @@
+% layout 'default_authed';
+% title 'Pratter 全ユーザ一覧';
+
+<div class="container">
+  <ul class="media-list list-tweet">
+% for my $user (@$users) {
+    <li class="media">
+    <a class="pull-left btn btn-info" href="#">
+      フォローする
+    </a>
+    <a class="pull-left btn btn-warning" href="#">
+      フォロー解除
+    </a>
+    <div class="media-body">
+      <h5 class="media-heading">
+        <%= $user->name %>
+        (<a href="/tweet/<%= $user->id %>">@<%= $user->login_name %></a>)
+      </h5>
+    </div>
+    </li>
+% }
+  </ul>
+
+</div> <!-- /container -->
