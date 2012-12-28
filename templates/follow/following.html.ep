@@ -1,14 +1,12 @@
 % layout 'default_authed';
-% title 'Pratter 全ユーザ一覧';
+% title 'Pratter フォロー 一覧';
 
 <div class="container">
   <ul class="media-list list-tweet">
+    <h3>フォロー 一覧</h3>
 % for my $user (@$users) {
     <li class="media">
-    <a class="pull-left btn btn-info" href="#">
-      フォローする
-    </a>
-    <a class="pull-left btn btn-warning" href="#">
+    <a class="pull-left btn btn-warning" href="/unfollow/<%= $user->id %>">
       フォロー解除
     </a>
     <div class="media-body">
