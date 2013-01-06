@@ -6,7 +6,7 @@ use utf8;
 use Object::Container '-base';
 use Path::Class qw/file dir/;
 use Module::Find;
-use Pratter::Schema;
+use Any::Moose;
 
 use constant PROJECT_NAME => 'Pratter';
 
@@ -64,6 +64,9 @@ register Schema => sub {
     my $module_name = PROJECT_NAME.'::Schema';
     my $env_dot_cloud_file = "/home/dotcloud/environment.json";
 
+    # connectする前にMooseを使ってSchemaをロードする
+    Any::Moose::load_class('Pratter::Schema');
+
     if ( -e $env_dot_cloud_file ) {
         # dotcloud environment
         $module_name->connect($self->get('Conf')->{db_dotcloud}->($env_dot_cloud_file));
@@ -92,5 +95,8 @@ register Schema => sub {
         };
     }
 }
+
+
+__PACKAGE__->meta->make_immutable;
 
 1;
