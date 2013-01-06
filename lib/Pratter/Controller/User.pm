@@ -11,7 +11,7 @@ sub index {
 
 sub register {
     my $self = shift;
-    my $user = $self->app->row('user');
+    my $user = $self->app->rs('user')->new_row;
     $self->stash->{user} = $user;
     $self->render;
 }

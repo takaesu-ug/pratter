@@ -122,13 +122,6 @@ sub rs {
     $self->schema->resultset($camel_name);
 }
 
-sub row {
-    my ($self, $name, $columns) = @_;
-    die "row object name is required" unless $name;
-
-    $columns = {} unless $columns;
-    $self->rs($name)->new($columns);
-}
 
 1;
 

@@ -18,12 +18,12 @@ sub index {
 
 sub register {
     my $self = shift;
-    my $tweet = $self->app->row('tweet');
+    my $tweet = $self->app->rs('tweet')->new_row;
     $self->stash->{tweet} = $tweet;
     $self->render;
 }
 sub create {
-    my $self = shift;
+   my $self = shift;
     my $validator = $self->create_validator('Pratter::Form::Validator::Tweet');
 
     my $tweet = $self->param('tweet');
