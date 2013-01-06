@@ -22,6 +22,7 @@ WriteMakefile(
         'JSON'                                  => '2.50',
         'Object::Container'                     => '0.14',
         'Path::Class'                           => '0.29',
+        'Module::Find'                          => '0.11',
 
         # 開発環境関連
         'Project::Libs'                         => 0,

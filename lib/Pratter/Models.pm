@@ -4,15 +4,18 @@ use warnings;
 use utf8;
 
 use Object::Container '-base';
-
 use Path::Class qw/file dir/;
+use Module::Find;
+use Pratter::Schema;
+
+use constant PROJECT_NAME => 'Pratter';
 
 # アプリのHomeディレクトリ
 register(
     Home => sub {
-        my $class = shift;
+        my $self = shift;
 
-        $class = ref $class || $class;
+        my $class = ref $self || $self;
         (my $file = "${class}.pm") =~ s!::!/!g;
 
         if (my $path = $INC{$file}) {
@@ -54,5 +57,40 @@ register(
     }
 );
 
+## DBICの設定
+# スキーマ オブジェクト
+register Schema => sub {
+    my $self = shift;
+    my $module_name = PROJECT_NAME.'::Schema';
+    my $env_dot_cloud_file = "/home/dotcloud/environment.json";
+
+    if ( -e $env_dot_cloud_file ) {
+        # dotcloud environment
+        $module_name->connect($self->get('Conf')->{db_dotcloud}->($env_dot_cloud_file));
+    }
+    else {
+        # local development environment
+        my $db_conf = $self->get('Conf')->{db} or die 'require database config';
+        $module_name->connect(@{ $db_conf });
+    }
+};
+
+# ResultSet オブジェクト
+# 「ResultSet::モデル名」でResultSetオブジェクトを登録
+{
+    my @modules = Module::Find::findallmod(PROJECT_NAME.'::Schema::Result');
+    my %module_by_name = map {
+        my $module = $_;
+        my $skip   = PROJECT_NAME.'::Schema::Result::';
+        (my $name = $module) =~ s/$skip//;
+        $name => $module;
+    } @modules;
+
+    for my $source (keys %module_by_name) {
+        register "ResultSet::${source}" => sub {
+            shift->get('Schema')->resultset($source);
+        };
+    }
+}
 
 1;
