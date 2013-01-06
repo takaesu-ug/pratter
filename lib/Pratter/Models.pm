@@ -7,8 +7,9 @@ use Object::Container '-base';
 
 use Path::Class qw/file dir/;
 
+# アプリのHomeディレクトリ
 register(
-    home => sub {
+    Home => sub {
         my $class = shift;
 
         $class = ref $class || $class;
@@ -33,18 +34,17 @@ register(
     }
 );
 
-
+# コンフィグのハッシュリファレンス
 register(
-    conf => sub {
-        my $home = shift->get('home');
+    Conf => sub {
+        my $home = shift->get('Home');
 
         my $conf = {};
-        for my $fn (qw/config\/config.pl config\/config_local.pl/) {
-            my $file = $home->file($fn);
+        for my $conf_file (qw/config\/config.pl config\/config_local.pl/) {
+            my $file = $home->file($conf_file);
             if (-e $file) {
                 my $c = do $file;
-                die 'config should return HASHREF'
-                unless ref($c) and ref($c) eq 'HASH';
+                die 'config should return HASHREF' unless ref($c) eq 'HASH';
 
                 $conf = { %$conf, %$c };
             }
