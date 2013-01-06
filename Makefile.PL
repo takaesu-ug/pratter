@@ -23,6 +23,7 @@ WriteMakefile(
         'Object::Container'                     => '0.14',
         'Path::Class'                           => '0.29',
         'Module::Find'                          => '0.11',
+        'Any::Moose'                            => '0.18',
 
         # 開発環境関連
         'Project::Libs'                         => 0,

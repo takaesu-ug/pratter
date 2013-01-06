@@ -69,7 +69,7 @@ register Schema => sub {
 
     if ( -e $env_dot_cloud_file ) {
         # dotcloud environment
-        $module_name->connect($self->get('Conf')->{db_dotcloud}->($env_dot_cloud_file));
+        $module_name->connect(@{ $self->get('Conf')->{db_dotcloud}->($env_dot_cloud_file) });
     }
     else {
         # local development environment
