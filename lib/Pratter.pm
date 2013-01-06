@@ -11,7 +11,6 @@ sub startup {
     #$self->plugin('PODRenderer');
 
     # Pluginをロード
-    $self->plugin('config' => {file => './config/config.pl'});
     $self->plugin('FormFields');
     $self->plugin('validator');
     $self->plugin('authentication' => $self->_auth_param);
