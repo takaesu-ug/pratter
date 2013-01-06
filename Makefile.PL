@@ -20,6 +20,8 @@ WriteMakefile(
         'DateTime::Format::MySQL'               => 0,
         'String::CamelCase'                     => '0.02',
         'JSON'                                  => '2.50',
+        'Object::Container'                     => '0.14',
+        'Path::Class'                           => '0.29',
 
         # 開発環境関連
         'Project::Libs'                         => 0,
@@ -27,3 +29,4 @@ WriteMakefile(
     },
     test      => {TESTS => 't/*.t'}
 );
+
