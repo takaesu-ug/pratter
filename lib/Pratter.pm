@@ -1,9 +1,7 @@
 package Pratter;
 use Mojo::Base 'Mojolicious';
-use String::CamelCase qw/ camelize decamelize /;
-use Pratter::Schema;
+use Pratter::Models 'models';
 
-use JSON;
 
 # This method will run once at server start
 sub startup {
@@ -65,7 +63,7 @@ sub _auth_param {
         'autoload_user'     => 1,
         'load_user'         => sub {
             my ($self, $uid) = @_;
-            my $user = $self->app->rs('user')->find_by_id($uid);
+            my $user = models('ResultSet::User')->find_by_id($uid);
             if ($user) {
                 return $user;
             }
@@ -75,7 +73,7 @@ sub _auth_param {
         },
         'validate_user'     => sub {
             my ($self, $username, $password, $extra) = @_;
-            my $user = $self->app->rs('user')->auth_user($username, $password);
+            my $user = models('ResultSet::User')->auth_user($username, $password);
 
             if ($user) {
                 return $user->id
@@ -87,41 +85,4 @@ sub _auth_param {
     }
 }
 
-sub schema {
-    my $self = shift;
-    my $env_dot_cloud_file = "/home/dotcloud/environment.json";
-    my $module_name = 'Pratter::Schema';
-
-    if ( -e $env_dot_cloud_file ) {
-        open my $fh, "<", $env_dot_cloud_file or die $!;
-        my $env = JSON::decode_json(join '', <$fh>);
-        my $user = $env->{DOTCLOUD_DB_MYSQL_LOGIN};
-        my $password = $env->{DOTCLOUD_DB_MYSQL_PASSWORD};
-        my $host = $env->{DOTCLOUD_DB_MYSQL_HOST};
-        my $port = $env->{DOTCLOUD_DB_MYSQL_PORT};
-        my $database = "pratter";
-        $module_name->connect(
-            "dbi:mysql:database=$database;host=$host;port=$port;", $user, $password,
-            {
-                on_connect_do     => ['SET NAMES utf8'],
-                mysql_enable_utf8 => 1,
-            },
-        );
-    }
-    else {
-        # local development environment
-        $module_name->connect(@{ $self->config->{db} });
-    }
-}
-
-sub rs {
-    my ($self, $name) = @_;
-    die "resultset name is required" unless $name;
-
-    my $camel_name = camelize $name;
-    $self->schema->resultset($camel_name);
-}
-
-
 1;
-
