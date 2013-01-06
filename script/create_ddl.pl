@@ -6,7 +6,7 @@ use FindBin::libs;
 use Path::Class qw/file/;
 use Getopt::Long;
 use Pod::Usage;
-use Pratter;
+use Pratter::Models 'models';
 
 =head1 DESCRIPTION
 
@@ -24,8 +24,7 @@ Schema/Result 以下を見てSQLを吐き出すスクリプト
 =cut
 
 
-my $app = Pratter->new;
-my $schema = $app->schema;
+my $schema = models('Schema');
 my $dir = 'sql/';
 my ($preversion, $help, $no_replace);
 

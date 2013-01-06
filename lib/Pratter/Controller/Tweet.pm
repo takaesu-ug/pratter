@@ -1,5 +1,6 @@
 package Pratter::Controller::Tweet;
 use Mojo::Base 'Mojolicious::Controller';
+use Pratter::Models 'models';
 
 # つぶやき一覧
 sub index {
@@ -7,10 +8,10 @@ sub index {
 
     my $user_id = $self->stash->{user_id};
     if ($user_id) {
-        $self->stash->{tweets} = [ $self->app->rs('tweet')->search_by_user_ids([$user_id])->all ];
+        $self->stash->{tweets} = [ models('ResultSet::Tweet')->search_by_user_ids([$user_id])->all ];
     }
     else {
-        $self->stash->{tweets} = [ $self->app->rs('tweet')->search_all->all ];
+        $self->stash->{tweets} = [ models('ResultSet::Tweet')->search_all->all ];
     }
 
     $self->render;
@@ -18,21 +19,21 @@ sub index {
 
 sub register {
     my $self = shift;
-    my $tweet = $self->app->row('tweet');
+    my $tweet = models('ResultSet::Tweet')->new_row;
     $self->stash->{tweet} = $tweet;
     $self->render;
 }
 sub create {
-    my $self = shift;
+   my $self = shift;
     my $validator = $self->create_validator('Pratter::Form::Validator::Tweet');
 
     my $tweet = $self->param('tweet');
     $self->stash->{tweet} = $tweet;
 
     if ($self->validate($validator)) {
-        my $txn = $self->app->schema->txn_scope_guard;
+        my $txn = models('Schema')->txn_scope_guard;
         $tweet->{user_id} = $self->current_user->id;
-        $self->app->rs('tweet')->create($tweet);
+        models('ResultSet::Tweet')->create($tweet);
         $txn->commit;
 
         $self->redirect_to('/');

@@ -3,6 +3,8 @@ use strict;
 use warnings;
 use parent 'Pratter::Schema::ResultBase';
 use Pratter::Schema::Types;
+use Pratter::Models 'models';
+
 
 __PACKAGE__->table('user');
 __PACKAGE__->add_columns(
@@ -49,13 +51,13 @@ sub timeline_tweets {
     my $ids = $self->following_user_ids;
     push @$ids, $self->id;
 
-    $self->resultset('tweet')->search_by_user_ids($ids)->all;
+    models('ResultSet::Tweet')->search_by_user_ids($ids)->all;
 }
 
 sub following_users {
     my $self = shift;
     my $user_ids = $self->following_user_ids;
-    my $rs = $self->resultset->search_by_ids($user_ids);
+    my $rs = models('ResultSet::User')->search_by_ids($user_ids);
     $rs->all;
 }
 
@@ -67,7 +69,7 @@ sub following_user_ids {
 sub follower_users {
     my $self = shift;
     my $user_ids = $self->follower_user_ids;
-    my $rs = $self->resultset->search_by_ids($user_ids);
+    my $rs = models('ResultSet::User')->search_by_ids($user_ids);
     $rs->all;
 }
 

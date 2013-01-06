@@ -1,17 +1,18 @@
 package Pratter::Controller::User;
 use Mojo::Base 'Mojolicious::Controller';
+use Pratter::Models 'models';
 
 # 全ユーザ一覧
 sub index {
     my $self = shift;
 
-    $self->stash->{users} = [ $self->app->rs('user')->search_all->all ];
+    $self->stash->{users} = [ models('ResultSet::User')->search_all->all ];
     $self->render;
 }
 
 sub register {
     my $self = shift;
-    my $user = $self->app->row('user');
+    my $user = models('ResultSet::User')->new_row;
     $self->stash->{user} = $user;
     $self->render;
 }
@@ -25,8 +26,8 @@ sub create {
     $self->stash->{user} = $user;
 
     if ($self->validate($validator)) {
-        my $txn = $self->app->schema->txn_scope_guard;
-        $self->app->rs('User')->create($user);
+        my $txn = models('Schema')->txn_scope_guard;
+        models('ResultSet::User')->create($user);
         $txn->commit;
 
         $self->authenticate($user->{login_name}, $user->{pass});

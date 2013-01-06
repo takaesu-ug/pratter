@@ -1,7 +1,7 @@
 package Pratter::Schema::ResultSet::Tweet;
 use strict;
 use warnings;
-use parent 'DBIx::Class::ResultSet';
+use parent 'Pratter::Schema::ResultSetBase';
 use DateTime;
 
 sub find_by_id {
